@@ -1,5 +1,5 @@
 # ftp-deploy
-deployment helper for differenciating php file deployment
+deployment helper for a very controlled php file deployment
 
 ## description
 
