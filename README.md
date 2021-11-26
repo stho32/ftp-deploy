@@ -8,6 +8,8 @@ It is actually a tool to help you implement a 5 step process which you can also 
 
 The main aim is to make sure that the target is really exactly like the source after execution while also allowing for specific ignores.
 
+Each step is documented and produces files with detailed information that you can use to check if it really does/did want you want it to do. This also opens ways to change the behaviour of the tool.
+
 - step 1: 
   - Tell ftp-deploy to deliver you information about the contents of a local directory (recursivly, respecting your ignores, like files or directorys, that you do not wish to list)
   - Tell ftp-deploy to deliver you information about the contents of a remote directory (recursivly, respecting your ignores, like files or directorys, that you do not wish to list)
