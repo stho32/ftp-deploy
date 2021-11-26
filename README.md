@@ -1,3 +1,5 @@
+# this is still work in progress
+
 # ftp-deploy
 deployment helper for a very controlled php file deployment
 
