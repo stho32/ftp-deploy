@@ -48,7 +48,7 @@ This operation creates a json file with loads of information about all the local
 [ ] 
 
 ```
-ftpdeploy --describe-dir --ftp --user xxx --password yyy  --host somehost.com --root / --ignores ignore-something.json --output C:\remote-listing.json
+ftpdeploy --describe-dir --ftp user:password@somehost.com --ftproot / --ignores ignore-something.json --output C:\remote-listing.json
 ```
 This operation creates the very same structure but for a remote ftp directory.
 
@@ -77,7 +77,7 @@ This will generate a list of commands that are neccessary to make the target the
 [ ] 
 
 ```
-ftpdeploy --execute-synchronization --commands C:\synchronization-commands.json --ftp --user xxx --password yyy --host somehost.com --root /
+ftpdeploy --execute-synchronization --commands C:\synchronization-commands.json --ftp user:password@somehost.com --ftproot /
 ```
 
 This will execute all prepared commands.
