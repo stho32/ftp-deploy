@@ -15,4 +15,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ftpdeploy.BL\ftpdeploy.BL.csproj" />
+  </ItemGroup>
+
 </Project>
