@@ -1,4 +1,4 @@
-namespace fftpdeploy.Classes.CommandLineArguments;
+namespace ftpdeploy.Classes.CommandLineArguments;
 
 public class StringCommandLineOption : WithValueCommandLineOption<string>
 {

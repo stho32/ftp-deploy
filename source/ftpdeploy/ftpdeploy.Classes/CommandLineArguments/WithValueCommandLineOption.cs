@@ -1,6 +1,6 @@
 using ftpdeploy.Interfaces.CommandLineArguments;
 
-namespace fftpdeploy.Classes.CommandLineArguments;
+namespace ftpdeploy.Classes.CommandLineArguments;
 
 public abstract class WithValueCommandLineOption<T> : IWithValueCommandLineOption<T>
 {
