@@ -1,6 +1,6 @@
 using ftpdeploy.Interfaces.CommandLineArguments;
 
-namespace ftpdeploy.BL.CommandLineArguments;
+namespace ftpdeploy.Classes.CommandLineArguments;
 
 public class Parser {
     private readonly ICommandLineOption[] options;
@@ -45,15 +45,16 @@ public class Parser {
         throw new Exception($"A bool command line option with the name {name} could not be found.");
     }
 
-    public int GetInt32Option(string name) {
+    public T? GetOptionWithValue<T>(string name) {
         foreach (var option in options) {
-            if (option.Name.ToLower().Trim() == name.ToLower().Trim()) {
-                if (option is IInt32CommandLineOption op) {
-                    return op.GetValue();
+            if (option.Name.ToLower().Trim() == name.ToLower().Trim() ) {
+                if (option is IWithValueCommandLineOption<T>)
+                {
+                    return ((IWithValueCommandLineOption<T>)option).GetValue();
                 }
             }
         }
 
-        throw new Exception($"A bool command line option with the name {name} could not be found.");
+        throw new Exception($"A valued command line option with the name {name} could not be found.");
     }
 }

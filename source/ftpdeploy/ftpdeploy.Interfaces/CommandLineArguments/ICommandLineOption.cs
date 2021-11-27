@@ -6,4 +6,5 @@ public interface ICommandLineOption
 
     bool HasNoValueYet();
     bool TryParseFrom(string[] args, ref int position);
+    bool IsTypeWithSeparateValue { get; }
 }

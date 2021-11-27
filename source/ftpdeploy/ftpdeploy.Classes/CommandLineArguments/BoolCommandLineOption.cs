@@ -14,6 +14,8 @@ public class BoolCommandLineOption : IBoolCommandLineOption
 
     public string Name { get; }
 
+    public bool IsTypeWithSeparateValue => false;
+
     public bool GetValue()
     {
         return _value;
