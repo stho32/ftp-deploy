@@ -1,4 +1,5 @@
-﻿using ftpdeploy.BL.Interfaces;
+﻿using ftpdeploy.BL.FtpRelated;
+using ftpdeploy.BL.Interfaces;
 using ftpdeploy.Classes.CommandLineArguments;
 using ftpdeploy.Interfaces.CommandLineArguments;
 
@@ -21,12 +22,33 @@ public class OperationsFactory : IOperationsFactory
                 new StringCommandLineOption("--output")
             });
         
-        if (!parser.TryParse(args)) {
+        if (!parser.TryParse(args, false)) {
             Console.WriteLine("bad arguments for describe-dir subcommand");
             return new DoNothing.DoNothingOperation();
         }
 
-        return new DoNothing.DoNothingOperation();
+        var ftpDataParameter = parser.TryGetOptionWithValue<string>("--ftp");
+        var localDirectoryParameter = parser.TryGetOptionWithValue<string>("--local");
+        var ignoresParameter = parser.TryGetOptionWithValue<string>("--ignores");
+        var outputParameter = parser.TryGetOptionWithValue<string>("--output");
+
+        Console.WriteLine(" - FTP Access Information: " + (string.IsNullOrWhiteSpace(ftpDataParameter)?"No":"Yes"));
+        Console.WriteLine(" - Local Directory: " + (string.IsNullOrWhiteSpace(localDirectoryParameter)?"No":"Yes"));
+        Console.WriteLine(" - Ignore: " + (string.IsNullOrWhiteSpace(ignoresParameter)?"No":"Yes"));
+        Console.WriteLine(" - Output: " + (string.IsNullOrWhiteSpace(outputParameter)?"No":"Yes"));
+
+        if (!string.IsNullOrWhiteSpace(ftpDataParameter)) {
+            var ftpAccessInformation = FtpRelated.FtpStringParser.Parse(ftpDataParameter);
+            return new DescribeDirectory.DescribeFtpDirectoryOperation(
+                ftpAccessInformation,
+                outputParameter
+            );
+        }
+
+        return new DescribeDirectory.DescribeLocalDirectoryOperation(
+            localDirectoryParameter,
+            outputParameter
+        );
     }
 }
 

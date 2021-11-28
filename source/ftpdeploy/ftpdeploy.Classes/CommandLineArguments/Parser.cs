@@ -10,7 +10,7 @@ public class Parser {
         this.options = options;
     }
 
-    public bool TryParse(string[] args)
+    public bool TryParse(string[] args, bool allowIncompleteness)
     {
         var position = 0;
 
@@ -18,6 +18,9 @@ public class Parser {
             var startPositionForTheRound = position;
 
             foreach (var option in options) {
+                if (position >= args.Length)
+                    break;
+
                 if (option.HasNoValueYet()) {
                     if (option.TryParseFrom(args, ref position))
                         continue;
@@ -25,12 +28,18 @@ public class Parser {
             }
 
             if (startPositionForTheRound == position) {
-                return false;
+                if ( allowIncompleteness ) {
+                    position += 1;
+                } else {
+                    Console.WriteLine("At position " + position + " I did not know how to read your command line arguments...");
+                    return false;
+                }
             }
         }
 
         return true;
     }
+    
 
     public bool GetBoolOption(string name)
     {
@@ -56,5 +65,18 @@ public class Parser {
         }
 
         throw new Exception($"A valued command line option with the name {name} could not be found.");
+    }
+
+    public T? TryGetOptionWithValue<T>(string name) {
+        foreach (var option in options) {
+            if (option.Name.ToLower().Trim() == name.ToLower().Trim() ) {
+                if (option is IWithValueCommandLineOption<T>)
+                {
+                    return ((IWithValueCommandLineOption<T>)option).GetValue();
+                }
+            }
+        }
+
+        return default(T);
     }
 }

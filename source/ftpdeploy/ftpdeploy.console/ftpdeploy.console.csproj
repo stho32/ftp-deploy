@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ftpdeploy.Interfaces\ftpdeploy.Interfaces.csproj" />
     <ProjectReference Include="..\ftpdeploy.Classes\ftpdeploy.Classes.csproj" />
+    <ProjectReference Include="..\ftpdeploy.BL\ftpdeploy.BL.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

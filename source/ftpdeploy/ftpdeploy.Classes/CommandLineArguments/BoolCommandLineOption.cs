@@ -28,10 +28,15 @@ public class BoolCommandLineOption : IBoolCommandLineOption
 
     public bool TryParseFrom(string[] args, ref int position)
     {
+        if (position > (args.Length-1)) {
+            return false;
+        }
+
         var myName = Name.ToLower().Trim(); 
         var arg = args[position].ToLower().Trim();
 
         if (myName == arg) {
+            Console.WriteLine(" - detected " + myName + " parameter");
             _hasValue = true;
             _value = true;
             position += 1;
