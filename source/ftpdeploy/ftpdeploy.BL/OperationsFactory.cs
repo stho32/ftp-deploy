@@ -17,6 +17,7 @@ public class OperationsFactory : IOperationsFactory
             new ICommandLineOption[] {
                 new BoolCommandLineOption("describe-dir"),
                 new StringCommandLineOption("--ftp"),
+                new StringCommandLineOption("--ftproot"),
                 new StringCommandLineOption("--local"),
                 new StringCommandLineOption("--ignores"),
                 new StringCommandLineOption("--output")
@@ -28,11 +29,13 @@ public class OperationsFactory : IOperationsFactory
         }
 
         var ftpDataParameter = parser.TryGetOptionWithValue<string>("--ftp");
+        var ftpRootParameter = parser.TryGetOptionWithValue<string>("--ftproot");
         var localDirectoryParameter = parser.TryGetOptionWithValue<string>("--local");
         var ignoresParameter = parser.TryGetOptionWithValue<string>("--ignores");
         var outputParameter = parser.TryGetOptionWithValue<string>("--output");
 
         Console.WriteLine(" - FTP Access Information: " + (string.IsNullOrWhiteSpace(ftpDataParameter)?"No":"Yes"));
+        Console.WriteLine(" - FTP Root Information: " + (string.IsNullOrWhiteSpace(ftpRootParameter)?"No":"Yes"));
         Console.WriteLine(" - Local Directory: " + (string.IsNullOrWhiteSpace(localDirectoryParameter)?"No":"Yes"));
         Console.WriteLine(" - Ignore: " + (string.IsNullOrWhiteSpace(ignoresParameter)?"No":"Yes"));
         Console.WriteLine(" - Output: " + (string.IsNullOrWhiteSpace(outputParameter)?"No":"Yes"));
@@ -41,6 +44,7 @@ public class OperationsFactory : IOperationsFactory
             var ftpAccessInformation = FtpRelated.FtpStringParser.Parse(ftpDataParameter);
             return new DescribeDirectory.DescribeFtpDirectoryOperation(
                 ftpAccessInformation,
+                ftpRootParameter,
                 outputParameter
             );
         }

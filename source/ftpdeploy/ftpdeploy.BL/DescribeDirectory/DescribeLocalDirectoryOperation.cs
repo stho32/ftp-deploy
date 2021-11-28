@@ -15,20 +15,21 @@ public class DescribeLocalDirectoryOperation : IOperation
 
     public DescribeLocalDirectoryOperation(string? localDirectoryParameter, string? outputParameter)
     {
-        if (string.IsNullOrWhiteSpace(localDirectoryParameter)) {
-            throw new Exception("A path is required");
-        }
-        if (string.IsNullOrWhiteSpace(outputParameter)) {
-            throw new Exception("You did not tell me where to put the results.");
-        }
-
         this.localDirectory = localDirectoryParameter;
         this.outputParameter = outputParameter;
     }
 
     public void Execute()
     {
+        if (string.IsNullOrWhiteSpace(localDirectory)) {
+            throw new Exception("A path is required");
+        }
+        if (string.IsNullOrWhiteSpace(outputParameter)) {
+            throw new Exception("You did not tell me where to put the results.");
+        }
+
         Console.WriteLine(" - describing local directory " + localDirectory);
+
         var result = GetFolderDescription(localDirectory);
 
         File.WriteAllText(outputParameter, JsonSerializer.Serialize(result));
